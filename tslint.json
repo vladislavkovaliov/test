@@ -1,0 +1,33 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended",
+        "tslint-react",
+        "tslint-config-standard",
+        "tslint-config-prettier"
+    ],
+    "jsRules": {},
+    "rules": {
+        "no-shadowed-variable": [0],
+        "newline-before-return": true,
+        "no-trailing-whitespace": true,
+        "eofline": true,
+        "max-line-length": [true, 80],
+        "no-consecutive-blank-lines": [true, 2],
+        "whitespace": [true, "check-module"],
+        "no-unused-variable": true,
+        "no-duplicate-variable": true,
+        "sort-imports": [2, {
+            "ignoreCase": false,
+            "ignoreMemberSort": false,
+            "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+        }],
+        "quotemark": [
+            true,
+            "single"
+        ]
+    },
+    "rulesDirectory": [
+        "node_modules/tslint-eslint-rules/dist/rules"
+    ]
+}
