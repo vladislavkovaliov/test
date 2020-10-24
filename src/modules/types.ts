@@ -1,6 +1,6 @@
 export type PostId = string | number;
-export type AuthorId = string;
-export type LikeId = string;
+export type AuthorId = string | number;
+export type LikeId = string | number;
 
 export type Post = {
     id: PostId;
@@ -9,7 +9,7 @@ export type Post = {
 };
 export type Like = {
     id: LikeId;
-    author: AuthorId;
+    author: Author;
 };
 export type Author = {
     id: AuthorId;

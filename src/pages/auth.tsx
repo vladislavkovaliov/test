@@ -4,13 +4,12 @@ import { useHistory, useLocation, } from 'react-router-dom';
 import actions from '../modules/routines';
 import { selectAuthenticated } from '../modules/auth/selectors';
 
-
 export default function AuthPage() {
     const dispatch = useDispatch();
     const onLogin = useCallback(
         (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault();
-        dispatch(actions.auth.login.request ());
+        dispatch(actions.auth.login.request());
     }, [dispatch]);
     const isAuthenticated = useSelector(selectAuthenticated);
     const history = useHistory();
