@@ -1,12 +1,13 @@
 import { path, isEmpty } from 'ramda';
-import { PostId, State, Post, PostsEntities } from '../types';
+import { State } from '../types';
+import { PostId, Post, PostsEntities, PostsState } from './types';
 import { denormalize } from 'normalizr';
 import * as schema from '../schema';
 import { createSelector } from 'reselect';
 
-const posts = (state: State) => state.posts;
+const posts = (state: PostsState) => state.posts;
 
-export const selectPosts = createSelector<State, PostsEntities, Post[]>(
+export const selectPosts = createSelector<PostsState, PostsEntities, Post[]>(
     posts,
     (posts) => {
         const { entities, result } = posts;

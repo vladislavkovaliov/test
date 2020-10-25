@@ -10,12 +10,12 @@ import { Provider } from 'react-redux';
 import rootStore from './modules/rootStore';
 
 import { initStore } from './modules/constants'
+import MainPage from './pages/main';
 import AuthPage from './pages/auth';
+
 import { PrivateRoute } from './components';
-
 const { store } = rootStore(initStore, () => ({}));
-const MainPage = React.lazy(() => import('./pages/main'));
-
+// const MainPage = React.lazy(() => import('./pages/main'));
 
 function App() {
     return (
