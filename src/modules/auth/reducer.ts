@@ -1,17 +1,20 @@
-import { handleActions } from 'redux-actions';
 import routines from '../routines';
-import { initStore } from '../constants';
-import { Auth } from '../types';
+import { createReducer, PayloadAction } from '@reduxjs/toolkit';
+import { initState } from './constants';
+import { LoginPayload } from './types';
 
-export const auth = handleActions<Auth>(
-    {
-        [routines.auth.login.SUCCESS]: (auth: Auth, action: any) => {
-            const { payload } = action;
+export const auth = createReducer(
+    initState,
+    (builder) => {
+        builder
+            .addCase(
+                routines.auth.login.SUCCESS,
+                (state, action: PayloadAction<LoginPayload>) => {
+                    const { payload } = action;
 
-            return {
-                ...payload,
-            };
-        },
+                    return {
+                        ...payload
+                    };
+                })
     },
-    initStore.auth,
 );

@@ -1,28 +1,35 @@
-import { applyMiddleware, createStore, Middleware, combineReducers } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction';
-import createSagaMiddleware from 'redux-saga';
-
-import rootSaga from './rootSaga';
-import posts from './posts';
 import auth from './auth';
 import { InitStore } from './types';
+import { initStore } from './constants'
 
-const sagaMiddleware = createSagaMiddleware();
 
-export default (initStore: InitStore, history: any) => {
-    const middlewares: Middleware<any, any, any>[] =
-        [sagaMiddleware].filter(Boolean);
+import { createStore, IModuleStore } from 'redux-dynamic-modules';
+import { getSagaExtension } from 'redux-dynamic-modules-saga';
 
-    const store = createStore(
-        combineReducers({
-            posts: posts.reducer,
-            auth: auth.reducer,
-        }),
-        initStore,
-        composeWithDevTools(applyMiddleware(...middlewares))
+import { initBacon } from '../ws';
+
+export const createGlobalStroe = (initStore: InitStore, history: any) => {
+    const store: IModuleStore<any> = createStore(
+        {
+            initialState: initStore,
+            extensions: [getSagaExtension()]
+        },
+        auth.getAuthModule(),
     );
-
-    sagaMiddleware.run(rootSaga);
 
     return { store };
 }
+
+export const globalStore = createGlobalStroe(initStore, () => ({}));
+
+export const webSocketBus = initBacon();
+
+webSocketBus.onValue((payload) => {
+    const { label, data } = payload;
+    globalStore.store.dispatch({
+        type: `ws/${label}`,
+        payload: { ...data },
+    });
+});
+
+webSocketBus.onError();

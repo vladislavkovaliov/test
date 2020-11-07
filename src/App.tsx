@@ -7,20 +7,22 @@ import {
 import './App.css';
 
 import { Provider } from 'react-redux';
-import rootStore from './modules/rootStore';
+import { globalStore } from './modules/rootStore';
 
 import { initStore } from './modules/constants'
+import MainPage from './pages/main';
 import AuthPage from './pages/auth';
+import { w3cwebsocket as W3CWebSocket } from 'websocket';
+
+
 import { PrivateRoute } from './components';
-
-const { store } = rootStore(initStore, () => ({}));
-const MainPage = React.lazy(() => import('./pages/main'));
-
+// const { store } = rootStore(initStore, () => ({}));
+// const MainPage = React.lazy(() => import('./pages/main'));
 
 function App() {
     return (
         <Router>
-            <Provider key='provider' store={store}>
+            <Provider key='provider' store={globalStore.store}>
                 <Switch>
                     <Route exact={true} path='/login'>
                         <AuthPage />

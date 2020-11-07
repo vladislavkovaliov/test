@@ -4,7 +4,7 @@ import { Posts, PostsProps } from './Posts';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 export default {
-    title: 'Example/Posts',
+    title: 'Module Post/Posts',
     component: Posts,
 } as Meta;
 

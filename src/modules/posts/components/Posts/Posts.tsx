@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectPosts } from '../../modules/posts/selectors';
+import { selectPosts } from '../../selectors';
 import { pathOr, cond, isEmpty, T, compose } from 'ramda';
-import { State, Post, Author } from '../../modules/types';
+import { Post, Author, PostsState } from '../../types';
 
 const EmptyPosts = ({ text }: { text: string }) => <div>{text}</div>;
 
@@ -21,7 +21,7 @@ export function Posts({ posts }: PostsProps): JSX.Element {
 }
 
 export function PostsContainer(): JSX.Element {
-    const posts = useSelector<State, Post[]>(selectPosts);
+    const posts = useSelector<PostsState, Post[]>(selectPosts);
     const render = cond([
         [isEmpty, () => <EmptyPosts text='No posts.' />],
         [T, (posts) => <Posts posts={posts} />]
