@@ -1,13 +1,11 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, call } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
 
 import routines from '../routines';
 import * as schema from '../schema';
 import { pathOr } from 'ramda';
-// import api, { getPosts, API } from '../../api';
-// import { AxiosResponse } from 'axios';
-// import { PostResponse, Posts } from '../types';
-// import { denormalize } from 'normalizr';
+
+import api from '../../api';
 
 export function* handleRequest() {
     const posts = [
@@ -39,7 +37,9 @@ export function* handleRequest() {
             ],
         }
     ];
-
+    console.log(api.base);
+    const posts2 = yield call(api.base.getPosts, '');
+    
     const normalizedData = normalize({ posts }, schema.posts);
     const entities = pathOr({}, ['entities', 'posts'], normalizedData);
     const result = pathOr([], ['result', 'posts'], normalizedData);

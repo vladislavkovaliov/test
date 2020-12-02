@@ -1,19 +1,30 @@
-import axios, { AxiosPromise, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosPromise, AxiosResponse } from 'axios';
 import config from '../config';
 import { PostResponse } from '../modules/posts/types';
 
-const posts = axios.create(config.api.posts.axiosConfig);
+// class ApiBase {
+//     public axios: AxiosInstance;
+//     constructor(axios: AxiosInstance) {
+//         console.log(axios);
+//         this.axios = axios;
+//     }
+// }
+
+class Base {
+    axios: any;
+    constructor(axios: any) {
+        console.log(4);
+        this.axios = axios;
+    }
+
+    getPosts(url: string = '/posts') {
+        console.log(this.axios)
+        // return this.axios.get<any, AxiosResponse<PostResponse>>(url);
+    }
+}
+const post = axios.create(config.api.posts.axiosConfig)
+const base = new Base(post);
 
 export default {
-    posts,
-}
-
-export const getPosts = async () => {
-    const data = fetch('/posts');
-};
-
-export class API {
-    getPosts() {
-        return posts.get<any, AxiosResponse<PostResponse>>('/posts');
-    }
+    base: base,
 }
